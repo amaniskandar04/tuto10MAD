@@ -1,7 +1,10 @@
 package com.example.practical8_9;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -25,6 +28,7 @@ import java.nio.charset.StandardCharsets;
 public class MainActivity extends AppCompatActivity {
 
     private static final String USER_FILE_NAME = "user_file";
+    private final int MY_PERMISSIONS_REQUEST_READ_MEDIA_IMAGES = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +95,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void BtnGalleryOnClick(View v){
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(android.Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED){
+                requestPermissions(new String[] {Manifest.permission.READ_MEDIA_IMAGES},MY_PERMISSIONS_REQUEST_READ_MEDIA_IMAGES);
+
+                // MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE is the app-defined int constant
+                return;
+            }
+        }
+
         Intent intent = new Intent(getApplicationContext(), GalleryActivity.class);
         startActivity(intent);
     }

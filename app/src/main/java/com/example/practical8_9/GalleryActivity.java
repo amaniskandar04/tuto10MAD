@@ -26,14 +26,11 @@ public class GalleryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED){
-                requestPermissions(new String[] {Manifest.permission.READ_MEDIA_IMAGES},MY_PERMISSIONS_REQUEST_READ_MEDIA_IMAGES);
+    }
 
-                // MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE is the app-defined int constant
-                return;
-            }
-        }
+    @Override
+    public void onStart(){
+        super.onStart();
 
         List<Image> ImageList = getPhotos();
         ImageView IVThumb1 = findViewById(R.id.IVThumb1);
